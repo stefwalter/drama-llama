@@ -1,0 +1,10 @@
+[Unit]
+Description=Run LLama
+
+[Service]
+Environment=LD_LIBRARY_PATH=/usr/local/cuda-11.7/targets/x86_64-linux/lib/
+ExecStart=/locallm/run.sh /locallm/models/llama-2-7b-chat.Q5_K_S.gguf
+
+[Install]
+WantedBy=multi-user.target
+
