@@ -1,0 +1,8 @@
+FROM quay.io/swalter/drama-llama:1-herd
+
+# Add our configuration
+COPY etc/ /etc/
+COPY usr/ /usr/
+RUN dnf -y module install nvidia-driver && \
+    dnf install -y nvidia-container-toolkit cuda-nvcc-11-7 libcublas-devel-11-7 cuda-cudart-devel-11-7 && \
+    rm /var/log/*.log /var/lib/dnf -rf

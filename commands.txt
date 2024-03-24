@@ -1,0 +1,29 @@
+# Needed to do this for subscription-manager mounts from /usr/share/containers/mounts.conf to work
+rm ~/.config/containers/mounts.conf
+
+2.0
+
+# Tons of graphics stuff xorg etc
+rpm -qa | less
+
+podman run -p 8001:80 -ti quay.io/swalter/monday:3.0
+
+curl -X POST -H "Content-Type: application/json" -d '{ "messages": [   { "content": "What is the capital of France?", "role": "user" } ] }' http://0.0.0.0:8001/v1/chat/completions
+
+
+cat /proc/driver/nvidia/version
+nvcc -V
+
+
+----
+Example output from run.service when GPU is enabled
+
+llm_load_tensors: offloading 32 repeating layers to GPU
+llm_load_tensors: offloading non-repeating layers to GPU
+llm_load_tensors: offloaded 33/33 layers to GPU
+
+# Speed is 1.5 seconds for "What is the capital of France?"
+
+How to install
+
+podman run --rm --privileged --pid=host --security-opt label=type:unconfined_t -v /:/target -v /var/lib/containers:/var/lib/containers quay.io/swalter/monday:1.0 bootc install to-filesystem --karg=console=ttyS0,115200n8 --replace=alongside /target
