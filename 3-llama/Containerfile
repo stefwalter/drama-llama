@@ -4,10 +4,10 @@ WORKDIR /locallm/models
 RUN curl -LO https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF/resolve/main/llama-2-7b-chat.Q5_K_S.gguf
 
 WORKDIR /locallm
-RUN dnf -y install pip gcc-c++ python3-devel
+RUN dnf -y install pip gcc-c++
 COPY requirements.txt /locallm/requirements.txt
 RUN pip install --upgrade pip
-RUN CUDACXX=/usr/local/cuda-11.7/bin/nvcc CMAKE_ARGS="-DLLAMA_CUBLAS=on -DCMAKE_CUDA_ARCHITECTURES=native" FORCE_CMAKE=1 pip install --no-cache-dir --upgrade -r /locallm/requirements.txt
+RUN pip install --no-cache-dir --upgrade -r /locallm/requirements.txt
 
 COPY run.sh run.sh
 COPY run.service /etc/systemd/system/
